@@ -301,9 +301,37 @@ public class GlobalUserIDTest extends SCIMHttpResponseCodeTest {
     }
 
     @Test
-    @DisplayName("Support the update of the Global User ID.")
+    @DisplayName("Support updating the Global User ID")
     public void testUpdateOfGlobalID() {
-        //todo explicitly as well - done above already
+        final String userName = "supportUpdateOfGuid";
+        final String uUid = "xNTb+_k:g+dK_+b++B_hq9_X+_+X+lLdohwj";
+        final String newUUid = "M4W_/nf__+__:.D_+-B+m_++A_++__1taN1";
+        final String email = "peter.lustig@update.uuid";
+
+        // check user doesn't exist and delete otherwise
+        checkUserDoesntExistAndDelete(userName, email);
+
+        User user = TestData.buildSAPExtensionUser(userName, uUid, email);
+        SCIMResponse<User> scimResponse = resourceAwareUserRequest.createUser(user);
+
+        logger.info("Fetching user User: {}", userName);
+        User createdUser = resourceAwareUserRequest.readSingleUser(scimResponse.get().getId()).get();
+        String readUUid = (String) createdUser.getExtensions().get("urn:ietf:params:scim:schemas:extension:sap:2.0:User").getAttribute("userUuid");
+        String userId = createdUser.getId();
+        assertEquals(readUUid, uUid);
+
+        logger.info("Setting uuid to a new value");
+
+        SAPUserExtension.Builder sapExtBuild = new SAPUserExtension.Builder().setUserUuid(newUUid);
+        User updatedUser = new User.Builder(user).setId(userId).addExtension(sapExtBuild.build()).build();
+
+        SCIMResponse<User> updatedUserScimResponse = resourceAwareUserRequest.updateUser(updatedUser);
+        logger.info(updatedUserScimResponse.toString());
+
+        logger.info("Fetching user User: {}", userName);
+        User updatedUserRead = resourceAwareUserRequest.readSingleUser(updatedUserScimResponse.get().getId()).get();
+        String updatedUuid = (String) updatedUserRead.getExtensions().get("urn:ietf:params:scim:schemas:extension:sap:2.0:User").getAttribute("userUuid");
+        assertEquals(updatedUuid, newUUid);
     }
 
     private void checkUserDoesntExistAndDelete(String userName, String email) {
