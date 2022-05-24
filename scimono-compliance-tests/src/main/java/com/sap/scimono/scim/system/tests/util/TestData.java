@@ -153,6 +153,13 @@ public class TestData {
         return addAllSAPUserExtensionAttributesToTestUser(testUser, uuid);
     }
 
+    public static User buildInActiveUser(final boolean userActive, final String userName, final String uuid, final String email) {
+        User.Builder userActiveUser = new User.Builder(buildSAPExtensionUser(userName, uuid, email)).setActive(userActive);
+        return addAllSAPUserExtensionAttributesToTestUser(userActiveUser, uuid);
+    }
+
+
+
     public static User addAllSAPUserExtensionAttributesToTestUser(final User.Builder testUserBuilder, final String uuid) {
         SAPUserExtension.Builder sapExtBuild = new SAPUserExtension.Builder();
         sapExtBuild.setUserUuid(uuid)
@@ -169,8 +176,6 @@ public class TestData {
                 .setWebAuthEnabled(true)
                 .setMfaEnabled(true)
                 .setContactPreferences(new ContactPreferences("yes", "yes"));
-
-//            .setLoginTime()
 
         testUserBuilder.addExtension(sapExtBuild.build());
         return testUserBuilder.build();
