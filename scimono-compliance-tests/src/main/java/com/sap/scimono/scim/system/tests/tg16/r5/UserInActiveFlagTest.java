@@ -43,7 +43,7 @@ public class UserInActiveFlagTest extends SCIMHttpResponseCodeTest {
 
     @Test
     @DisplayName("Create unlocked user")
-    public void createUnlockedUser() {
+    public void createUnlockedUserTest() {
 
         final String uUid = guidGenerator.getGuid();
         final String userName = "activeFlag_createUnlockedUser";
@@ -62,7 +62,7 @@ public class UserInActiveFlagTest extends SCIMHttpResponseCodeTest {
 
     @Test
     @DisplayName("Create locked user")
-    public void createLockedUser() {
+    public void createLockedUserTest() {
 
         final String uUid = guidGenerator.getGuid();
         final String userName = "activeFlag_createLockedUser";
@@ -81,7 +81,7 @@ public class UserInActiveFlagTest extends SCIMHttpResponseCodeTest {
 
     @Test
     @DisplayName("Deactivate user via PUT")
-    public void deactivateUserViaPut() {
+    public void deactivateUserViaPutTest() {
 
         final String uUid = guidGenerator.getGuid();
         final String userName = "activeFlag_deactivateViaPut";
@@ -96,7 +96,7 @@ public class UserInActiveFlagTest extends SCIMHttpResponseCodeTest {
 
     @Test
     @DisplayName("Activate user via PUT")
-    public void activateUserViaPut() {
+    public void activateUserViaPutTest() {
 
         final String uUid = guidGenerator.getGuid();
         final String userName = "activeFlag_activateViaPut";
@@ -111,7 +111,7 @@ public class UserInActiveFlagTest extends SCIMHttpResponseCodeTest {
 
     @Test
     @DisplayName("Activate user via PATCH")
-    public void activateUserViaPatch() {
+    public void activateUserViaPatchTest() {
 
         final String uUid = guidGenerator.getGuid();
         final String userName = "activeFlag_activateViaPatch";
@@ -126,7 +126,7 @@ public class UserInActiveFlagTest extends SCIMHttpResponseCodeTest {
 
     @Test
     @DisplayName("Deactivate user via PATCH")
-    public void deActivateUserViaPatch() {
+    public void deActivateUserViaPatchTest() {
 
         final String uUid = guidGenerator.getGuid();
         final String userName = "activeFlag_deActivateViaPatch";
